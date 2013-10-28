@@ -1,0 +1,67 @@
+﻿@using Telerik.Web.Mvc;
+@model IEnumerable<GestorSuministro.BLL.Referencias.CProveedor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <fieldset>
+        <legend>Filtros de B&uacute;squeda </legend>
+        <div class="editor-label" style="font-weight: bold">
+            Id
+        </div>
+        <div class="editor-field">
+            @Html.Editor("IdProveedor")
+        </div>
+        <div class="editor-label" style="font-weight: bold">
+            Nombre
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Nombre")
+        </div>
+        <div class="editor-label" style="font-weight: bold">
+            @Html.Label("Telefono")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Telefono")
+        </div>
+        <fieldset style="width: 210px">
+            <legend>Estado</legend>Activo @Html.RadioButton("Estado", true)
+            Inactivo @Html.RadioButton("Estado", false)
+            Todos @Html.RadioButton("Estado", "", true)
+        </fieldset>
+        <div>
+            <input type="submit" value="Buscar" />
+        </div>
+    </fieldset>
+</div>
+<p>
+    @Html.ActionLink("Agregar Nuevo", "Create")
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.IdProveedor);
+            columns.Bound(o => o.Nombre);
+            columns.Bound(o => o.Direccion);
+            columns.Bound(o => o.Telefono);
+            columns.Bound(o => o.Celular);
+            columns.Bound(o => o.Email);
+            columns.Bound(o => o.Estado)
+                .ClientTemplate("<input type='checkbox' name='Estado' disabled='disabled' <#=Estado ? checked='checked' : '' #> />");
+            columns.Bound(o => o.Garantia);
+            columns.Bound(o => o.TiempoEntrega);
+            columns.Bound(o => o.Usuario);
+            columns.Bound(o => o.Fecha);
+            columns.Bound(t => t.IdProveedor).Title("Editar")
+                            .ClientTemplate(Html.ActionLink("Editar", "Edit", "Departamento", new { area = "Referencias", id = "<#= IdDepartamento #>" }).ToHtmlString());
+        }).BindTo(Model)
+            .Scrollable()            
+            //.Sortable(sorting => sorting.Enabled((bool)ViewData["sorting"]))
+            //.Pageable(paging => paging.Enabled((bool)ViewData["paging"]))
+            //.Filterable(filtering => filtering.Enabled((bool)ViewData["filtering"]))
+            //.Groupable(grouping => grouping.Enabled((bool)ViewData["grouping"]))
+            //.Footer((bool)ViewData["showFooter"])
+)
+</p>

@@ -1,0 +1,63 @@
+﻿@using Telerik.Web.Mvc;
+@model IEnumerable<GestorSuministro.BLL.Referencias.CDepartamento>
+@{
+    ViewBag.Title = "Departamentos (Consulta)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Consulta Departamentos</h2>
+<div>
+    <fieldset>
+        <legend>Filtros de B&uacute;squeda </legend>cv 
+        <div class="editor-label" style="font-weight: bold">
+            Id
+        </div>
+        <div class="editor-field">
+            @Html.Editor("IdDepartamento")
+        </div>
+        <div class="editor-label" style="font-weight: bold">
+            Descripci&oacute;n
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Descripcion")
+        </div>
+        <div class="editor-label" style="font-weight: bold">
+            @Html.Label("Abrev")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Abrev")
+        </div>
+        <fieldset style="width: 210px">
+            <legend>Estado</legend>Activo @Html.RadioButton("Estado", true)
+            Inactivo @Html.RadioButton("Estado", false)
+            Todos @Html.RadioButton("Estado", "", true)
+        </fieldset>
+        <div>
+            <input type="submit" value="Buscar" />
+        </div>
+    </fieldset>
+</div>
+<p>
+    @Html.ActionLink("Agregar Nuevo", "Create")
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.IdDepartamento).Width(100);
+            columns.Bound(o => o.Descripcion).Width(200);
+            columns.Bound(o => o.Abrev);
+            columns.Bound(o => o.Estado)
+                .ClientTemplate("<input type='checkbox' name='Estado' disabled='disabled' <#= Estado ? checked='checked' : '' #> />");
+            columns.Bound(o => o.Usuario);
+            columns.Bound(o => o.Fecha);
+            columns.Bound(t => t.IdDepartamento).Title("Editar")
+                            .ClientTemplate(Html.ActionLink("Editar", "Edit", "Departamento", new { area = "Referencias", id = "<#= IdDepartamento #>" }).ToHtmlString());
+        }).BindTo(Model)
+            //.Scrollable(scrolling => scrolling.Ebled((bool)ViewData["scrolling"]))
+            //.Sortable(sorting => sorting.Enabled((bool)ViewData["sorting"]))
+            //.Pageable(paging => paging.Enabled((bool)ViewData["paging"]))
+            //.Filterable(filtering => filtering.Enabled((bool)ViewData["filtering"]))
+            //.Groupable(grouping => grouping.Enabled((bool)ViewData["grouping"]))
+            //.Footer((bool)ViewData["showFooter"])
+)
+</p>

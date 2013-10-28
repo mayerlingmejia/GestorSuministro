@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.metro.css").Combined(true).Compress(true)))</head>
+<body>
+    <div class="page">
+        <header>
+			<div id="title">
+				<h1>Artepiel C.x A.</h1>
+                <h3>Gestor de Suministros</h3>
+			</div>
+
+			@(Html.Telerik().Menu()
+                    .Name("menu")
+                    .Items(menu =>
+                    {
+                        menu.Add().Text("Inicio").Action("Index", "Home");                        
+                        menu.Add().Text("Referencias")
+                            .Items(item => {
+                                item.Add().Text("Departamentos").Action("Index", "Departamento", new { area = "Referencias" });
+                                item.Add().Text("Proveedores").Action("Index", "Proveedor", new { area = "Referencias" });    
+                        });
+                        menu.Add().Text("Inventario").Action("About", "Home");
+                    }))
+		</header>
+        <section id="main">
+			@RenderBody()
+		</section>
+        <footer>
+		</footer>
+    </div>
+    @(Html.Telerik().ScriptRegistrar().Globalization(true).DefaultGroup(group => group.Combined(true).Compress(true)))</body>
+</html>
