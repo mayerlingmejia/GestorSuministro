@@ -1,0 +1,121 @@
+﻿@using Telerik.Web.Mvc.UI;
+@model GestorSuministro.BLL.Referencias.CProducto
+@{
+    ViewBag.Title = "Productos(Consulta)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SelectListItem[] tmpTipoProducto = ViewBag.tmpTipoProducto;
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "ContentForm" }))
+{
+    @Html.ValidationSummary(true);
+    <fieldset style="width: 750px">
+        <legend>Criterios de busqueda</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IdProducto):
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.IdProducto)
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.Descripcion):
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Descripcion)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Abrev):
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Abrev)
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.TipoProducto):
+                </td>
+                <td>
+                    @(Html.Telerik().DropDownListFor(model => model.TipoProducto.IdTipoProducto)
+                        .BindTo(tmpTipoProducto.OrderBy(c => c.Text))
+                        .Placeholder("Seleccione...").HtmlAttributes(new{style="width:200px"}))
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <fieldset style="width: 300px;">
+                        <legend>@Html.LabelFor(model => model.Estado)</legend>
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.RadioButtonFor(model => model.Estado, true) Activo
+                                </td>
+                                <td>
+                                    @Html.RadioButtonFor(model => model.Estado, false) Inactivo
+                                </td>
+                                <td>
+                                    @Html.RadioButtonFor(model => model.Estado, true) Todos
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <button onclick="cRefresh('Grid')" type="button">
+            Buscar</button>
+    </fieldset>
+                                 //if (_CustCycleIns.GetValueOrDefault())
+    <div>
+        @Html.ActionLink("Agregar Nuevo", "Create", null, new { Class = "JQButton" })
+    </div>
+    <br />
+    //}
+
+
+}
+@(Html.Telerik().Grid<GestorSuministro.BLL.Referencias.CProducto>()
+    .Name("Grid")
+    .DataKeys(keys => keys.Add(c => c.IdProducto))
+        .DataBinding(dataBinding => dataBinding.Server()
+            .Update("Edit", "Producto", new { area = "References", id = 1 })
+            .Delete("Details", "Producto", new { area = "References", id = 1 }))
+    .Columns(columns =>
+    {
+        columns.Bound(t => t.IdProducto).Width(10);
+        columns.Bound(t => t.Descripcion).Width(200);
+        columns.Bound(t => t.Abrev).Width(200);
+        columns.Bound(t => t.Color).Width(200);
+        columns.Bound(t => t.TipoProducto.Descripcion).Width(200).Title("Tipo Producto");
+        columns.Bound(t => t.Estado).Width(100)
+            .ClientTemplate("<input type='checkbox' name='Estado' disabled='disabled' <#=Estado checked='checked' : '' #> />")
+            .Title("Estado");
+        columns.Bound(o => o.Usuario);
+        columns.Bound(o => o.Fecha);
+        columns.Command(commands =>
+        {
+            commands.Delete().Text("Detalle");
+            commands.Edit().Text("Editar");
+        }).Width(180).Title("Acciones");
+    })
+
+    .BindTo(Model.Lista)
+)
+@*@section ScriptSection {
+    <script type="text/javascript">
+        function Grid_onDataBinding(e) {
+            var grid = $("#Grid").data("tGrid");
+            var tmpForm = $("#ContentForm").formParams();
+            e.data = tmpForm;
+            uSetGridIcons();
+        };
+        $(function () {
+            uSetAncorClass();
+        });
+    </script>
+}*@ 

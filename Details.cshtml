@@ -1,0 +1,59 @@
+﻿@model GestorSuministro.BLL.Referencias.CProducto
+
+@{
+    ViewBag.Title = "Detalle de Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>Detalle de Producto</legend>
+
+    <div class="display-label" style="font-weight: bold">IdProducto:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdProducto)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Descripcion:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descripcion)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Abrev:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Abrev)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Tamaño:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tamano)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Peso:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Peso)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Color:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Color)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Estado:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Estado)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Usuario:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usuario)
+    </div>
+
+    <div class="display-label" style="font-weight: bold">Fecha:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Volver a la Lista", "Index")
+</p>
