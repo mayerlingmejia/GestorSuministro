@@ -25,7 +25,7 @@ namespace GestorSuministro.BLL.Referencias
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Display(Name = "Estado")]
-        public bool? Estado { get; set; }
+        public bool Estado { get; set; }
         [Display(Name = "Garantia")]
         public string Garantia { get; set; }
         [Display(Name = "Tiempo Entrega")]

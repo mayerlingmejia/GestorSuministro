@@ -16,7 +16,7 @@ namespace GestorSuministro.BLL.Referencias
         [Display(Name = "Abreviación")]
         public string Abrev { get; set; }
         [Display(Name = "Estado")]
-        public bool? Estado { get; set; }
+        public bool Estado { get; set; }
         [Display(Name = "Usuario")]
         public string Usuario { get; set; }
         [Display(Name = "Fecha")]
